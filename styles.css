@@ -1,1 +1,77 @@
-.css
+img {
+	  height: 300px;
+	  width: 300px;
+	  float: left;
+	  margin-left: calc(25% - 225px);
+	  margin-top: 140px;
+	  display: none;
+	}
+	img:hover {
+	  cursor: pointer;
+	}
+
+
+	h2 {
+	 font-family: 'Diplomata', cursive; cursive;
+	  margin: 50px;
+    	  text-align: center;
+	}
+
+
+	p {
+	font-family: 'Gloria Hallelujah', cursive;
+font-style: normal;
+font-weight: 700px;
+	  width: 90%;
+	  text-align: center;
+	  margin: 20px auto;
+	}
+
+
+	button {
+	  font-size: 30px;
+	  width: 250px;
+	  margin-left: calc(50% - 125px);
+	  color: lime;
+	  margin-top: 1px;
+	  margin-bottom: 200px;
+	  border-radius: 70px;
+	  padding: 10px;
+        width: 300px;
+    height: 100px;
+    background-color: red;
+    box-shadow: 1px 9px 5px 1px black;
+	}
+
+
+	button:hover {
+	  cursor: pointer;
+	}
+
+
+	button#start_over {
+	  display: none;
+	}
+
+
+	#chart_container {
+	  height: 600px;
+	  width: 90%;
+	  margin-left: 5%;
+	  display: none;
+	}
+
+
+	.hidden {
+	  display: none;
+	}
+
+
+	.show_img {
+	  display: inline-block;
+	}
+
+
+	.show_block {
+	  display: block !important;
+	}
