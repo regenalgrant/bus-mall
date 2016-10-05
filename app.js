@@ -13,6 +13,8 @@ var rightPic;
 var oldLeft;
 var oldCenter;
 var oldRight;
+var iName = [];
+var iClicks = [];
 
 // Consrtuctor Function
 function BusMallItem(image, imageName) {
@@ -45,14 +47,13 @@ function makeImgObj() {
   new BusMallItem('images/usb.gif','usb');
   new BusMallItem('images/water-can.jpg','water-can');
   new BusMallItem('images/wine-glass.jpg','wine-glass');
-  console.log(collectionOfBusMall);
+  ;
 }
 makeImgObj();
 
 // random img generator for left, center, right
 function rollDice() {
   if (counter >= 25) {
-    alert('25 Rolls.');
     images.removeEventListener('click', clickHandler);
     updateArrays();
     paintChart();
@@ -89,20 +90,20 @@ function clickHandler(event) {
 	// console.log(images.target);
   if (event.target.id === 'left') {
     collectionOfBusMall[leftPic].countClicks += 1;
+    console.log(collectionOfBusMall[leftPic].imageName + ' ' + collectionOfBusMall[leftPic].countClicks);
     counter += 1;
-    console.log(counter);
     rollDice();
   }
   if (event.target.id === 'center') {
     collectionOfBusMall[centerPic].countClicks += 1;
+    console.log(collectionOfBusMall[centerPic].imageName + ' ' + collectionOfBusMall[centerPic].countClicks);
     counter += 1;
-    console.log(counter);
     rollDice();
   }
   if (event.target.id === 'right') {
     collectionOfBusMall[rightPic].countClicks += 1;
+    console.log(collectionOfBusMall[rightPic].imageName + ' ' + collectionOfBusMall[rightPic].countClicks);
     counter += 1;
-    console.log(counter);
     rollDice();
   }
   if (event.target.id === 'images') {
@@ -117,7 +118,7 @@ function hideChart() {
 
 function updateArrays() {
   for (var i = 0; i < collectionOfBusMall.length; i++) {
-    iName[i] = collectionOfBusMall[i].image;
+    iName[i] = collectionOfBusMall[i].imageName;
     iClicks[i] = collectionOfBusMall[i].countClicks;
   }
 }
