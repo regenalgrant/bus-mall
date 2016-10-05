@@ -1,22 +1,40 @@
 * {
-	
+
 }
-ul {
-  list-style: none;
+
+header {
+	width: 400px;
+	margin-left: 500px;
+	background-color: #b7d5e9;
+	padding: 10px;
 }
-li {
-  display: inline-block;
+
+h1 {
+	font-size: 30px;
+	font-family: Verdana;
+}
+
+p {
+	font-size: 14px;
+	font-family: Verdana;
+}
+
+#images {
+	display: inline-block;
+	margin-left: 200px;
+}
+
+img {
   width: 300px;
-}
-li img {
-  max-width: 300px;
-}
-
-#chart_container {
-  width: 800px;
-  height: 400px;
+	height: 300px;
+	display: inline-block;
 }
 
-canvas {
-
+#chart_canvas {
+  margin-left: 250px;
 }
+
+/*#chart_canvas {
+	width: 400px;
+	height: 400px;
+}*/
