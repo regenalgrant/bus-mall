@@ -1,18 +1,22 @@
 * {
-	margin: 0;
-	padding: 0;
-
+	
+}
+ul {
+  list-style: none;
+}
+li {
+  display: inline-block;
+  width: 300px;
+}
+li img {
+  max-width: 300px;
 }
 
-img  {
-
-	max-width: 100px;
-	min-width: 100px;
-	max-width: 100px;
-	min-width: 100px;
+#chart_container {
+  width: 800px;
+  height: 400px;
 }
 
-.inner {
-
+canvas {
 
 }
