@@ -1,156 +1,177 @@
 'use strict';
 
 var collectionOfBusMall = [];
-var selectorBox = document.getElementById('selectorBox');
+// var selectorBox = document.getElementById('selectorBox');
+var images = document.getElementById('images');
+var left = document.getElementById('left');
+var center = document.getElementById('center');
+var right = document.getElementById('right');
+var counter = 0;
+var leftPic;
+var centerPic;
+var rightPic;
+var oldLeft;
+var oldCenter;
+var oldRight;
+var iName = [];
+var iClicks = [];
+
+// Consrtuctor Function
 function BusMallItem(image, imageName) {
   this.image = image;
   this.imageName = imageName;
   this.countClicks = 0;
-  this.clickedImage = 0;
-
-  this.displayItem = function() {
-    var imageElement = document.createElement('image');
-    imageElement.src = this.image;
-    imageElement.alt = this.imageName;
-    selectorBox.appendChild(imageElement);
-  };
-
+  this.shownImage = 0;
   collectionOfBusMall.push(this);
 }
 
-new BusMallItem('images/bag.jpg', 'bag');
-new BusMallItem('images/banana.jpg', 'banana');
-new BusMallItem('images/bathroom.jpg','bathroom');
-new BusMallItem('images/boots.jpg', 'boots');
-new BusMallItem('images/breakfast.jpg', 'breakfast');
-new BusMallItem('images/bubblegum.jpg', 'bubblegum');
-new BusMallItem('images/chair.jpg', 'chair');
-new BusMallItem('images/cthulhu.jpg', 'cthulhu');
-new BusMallItem('images/dog-duck.jpg', 'dog-duck');
-new BusMallItem('images/dragon.jpg','dragon');
-new BusMallItem('images/pen.jpg','pen');
-new BusMallItem('images/pet-sweep.jpg','pet-sweep');
-new BusMallItem('images/scissors.jpg','scissors');
-new BusMallItem('images/shark.jpg', 'shark');
-new BusMallItem('images/sweep.png','sweep');
-new BusMallItem('images/tauntaun.jpg','tauntaun');
-new BusMallItem('images/unicorn.jpg','unicorn');
-new BusMallItem('images/usb.gif','usb');
-new BusMallItem('images/water-can.jpg','water-can');
-new BusMallItem('images/wine-glass.jpg','wine-glass');
-console.log(collectionOfBusMall);
-
-//-----------------------------
-var selectorBox = document.getElementById('images');
-selectorBox.addEventListener('click', clickHandler);
-
-function selectThree () {
-  var selectThreeArray = [];
-  while(selectThreeArray.length !== 3){
-    var random = collectionOfBusMall[Math.floor(Math.random() * collectionOfBusMall.length)];
-    console.log('here');
-    selectThreeArray.push(random);
-  }
- return selectThreeArray;
- }
-function clickHandler(images) {
-	  console.log(images.target);
-	  var matchPath = images.target.getAttribute('BusMallItem');
-	  var selectThreeArray = randomN();
-	  console.log(matchPath);
-	  for(var i = 0; i < currentImageStruct.length; i++) {
-	    var currentIndex = currentImageStruct[i];
-	    var displayedObject = images[currentIndex];
-	    displayedObject.views += 1;
-	  }
-//-------------------------------------------------
-
-	  for (var i = 0; i < images.length; i++) {
-	    var currentImageObject = images[i];
-	    console.log('Images', i, images[i]);
-	    if (currentImageObject.path === matchPath) {
-	      console.log('found it!1', currentImageObject);
-	      currentImageObject.clicks += 1;
-	    };
-    }
-    currentImageStruct = selectThreeArray;
-    imageList.textContent = '';
-    drawImage(selectThreeArray[0]);
-    drawImage(selectThreeArray[1]);
-    drawImage(selectThreeArray[2]);
-    console.log(images);
-  };
+// Create Objects Function
+function makeImgObj() {
+  new BusMallItem('images/bag.jpg', 'bag');
+  new BusMallItem('images/banana.jpg', 'banana');
+  new BusMallItem('images/bathroom.jpg','bathroom');
+  new BusMallItem('images/boots.jpg', 'boots');
+  new BusMallItem('images/breakfast.jpg', 'breakfast');
+  new BusMallItem('images/bubblegum.jpg', 'bubblegum');
+  new BusMallItem('images/chair.jpg', 'chair');
+  new BusMallItem('images/cthulhu.jpg', 'cthulhu');
+  new BusMallItem('images/dog-duck.jpg', 'dog-duck');
+  new BusMallItem('images/dragon.jpg','dragon');
+  new BusMallItem('images/pen.jpg','pen');
+  new BusMallItem('images/pet-sweep.jpg','pet-sweep');
+  new BusMallItem('images/scissors.jpg','scissors');
+  new BusMallItem('images/shark.jpg', 'shark');
+  new BusMallItem('images/sweep.png','sweep');
+  new BusMallItem('images/tauntaun.jpg','tauntaun');
+  new BusMallItem('images/unicorn.jpg','unicorn');
+  new BusMallItem('images/usb.gif','usb');
+  new BusMallItem('images/water-can.jpg','water-can');
+  new BusMallItem('images/wine-glass.jpg','wine-glass');
+  ;
 }
-  function randomN() {
-    var firstRandomIndex = Math.floor(Math.random() * images.length);
-    var secondRandomIndex = Math.floor(Math.random() * images.length);
-    while(firstRandomIndex === secondRandomIndex) {
-      secondRandomIndex = Math.floor(Math.random() * images.length);
-    }
-    var thirdRandomIndex = Math.floor(Math.random() * images.length);
-    while(thirdRandomIndex === firstRandomIndex
-        || thirdRandomIndex === secondRandomIndex) {
-      thirdRandomIndex = Math.floor(Math.random() * images.length);
-    }
-    return [firstRandomIndex, secondRandomIndex, thirdRandomIndex];
+makeImgObj();
+
+// random img generator for left, center, right
+function rollDice() {
+  if (counter >= 25) {
+    images.removeEventListener('click', clickHandler);
+    updateArrays();
+    paintChart();
+    return;
+  } else {
+    hideChart();
+    leftPic = Math.floor(Math.random() * collectionOfBusMall.length);
+    centerPic = Math.floor(Math.random() * collectionOfBusMall.length);
+    rightPic = Math.floor(Math.random() * collectionOfBusMall.length);
   }
-  function drawImage(index) {
-
-    var img = document.createElement('img');
-    var li = document.createElement('li');
-    var imageList = document.getElementById('images');
-    var randomPath = images[index].path;
-
-    img.setAttribute('src', randomPath);
-
-    li.appendChild(img);
-    imageList.appendChild(li);
+  // validate unique numbers
+  if (leftPic === centerPic || leftPic === rightPic || centerPic === rightPic || leftPic === oldLeft || leftPic === oldCenter || leftPic === oldRight || centerPic === oldLeft || centerPic === oldCenter || centerPic === oldRight || rightPic === oldLeft || rightPic === oldCenter || rightPic === oldRight) {
+    rollDice();
+  } else {
+    // console.log(leftPic);
+    // console.log(centerPic);
+    // console.log(rightPic);
+  // write the image to the html page
+    left.src = collectionOfBusMall[leftPic].image;
+    center.src = collectionOfBusMall[centerPic].image;
+    right.src = collectionOfBusMall[rightPic].image;
+    oldLeft = leftPic;
+    oldCenter = centerPic;
+    oldRight = rightPic;
+    collectionOfBusMall[leftPic].shownImage += 1;
+    collectionOfBusMall[centerPic].shownImage += 1;
+    collectionOfBusMall[rightPic].shownImage += 1;
   }
+}
+rollDice();
 
-  function Image(name, path) {
-    this.views = 0;
-    this.clicks = 0;
-    this.name = name;
-    this.path = 'imgs/' + path;
-    images.push(this);
+// Event Handler
+function clickHandler(event) {
+	// console.log(images.target);
+  if (event.target.id === 'left') {
+    collectionOfBusMall[leftPic].countClicks += 1;
+    console.log(collectionOfBusMall[leftPic].imageName + ' ' + collectionOfBusMall[leftPic].countClicks);
+    counter += 1;
+    rollDice();
   }
-  var ctx = document.getElementById('chart_canvas');
-  new Chart(ctx, {
+  if (event.target.id === 'center') {
+    collectionOfBusMall[centerPic].countClicks += 1;
+    console.log(collectionOfBusMall[centerPic].imageName + ' ' + collectionOfBusMall[centerPic].countClicks);
+    counter += 1;
+    rollDice();
+  }
+  if (event.target.id === 'right') {
+    collectionOfBusMall[rightPic].countClicks += 1;
+    console.log(collectionOfBusMall[rightPic].imageName + ' ' + collectionOfBusMall[rightPic].countClicks);
+    counter += 1;
+    rollDice();
+  }
+  if (event.target.id === 'images') {
+    alert('You need to click on an image!');
+    rollDice();
+  }
+}
+
+function hideChart() {
+  document.getElementById('chart_canvas').hidden = true;
+}
+
+function updateArrays() {
+  for (var i = 0; i < collectionOfBusMall.length; i++) {
+    iName[i] = collectionOfBusMall[i].imageName;
+    iClicks[i] = collectionOfBusMall[i].countClicks;
+  }
+}
+
+var data = {
+  labels: iName,
+  datasets: [
+    {
+      label: 'You Picked',
+      data: iClicks,
+      backgroundColor: [
+        'rgb(0,0,0)',
+        'rgb(0,0,128)',
+        'rgb(0,0,255)',
+        'rgb(0,128,0)',
+        'rgb(0,128,128)',
+        'rgb(0,255,0)',
+        'rgb(0,255,255)',
+        'rgb(128,0,0)',
+        'rgb(128,0,128)',
+        'rgb(128,128,0)',
+        'rgb(128,128,128)',
+        'rgb(192,192,192)',
+        'rgb(255,0,0)',
+        'rgb(255,0,255)',
+        'rgb(255,255,0)',
+        'rgb(215, 44, 122)',
+        'rgb(84, 44, 122)',
+        'rgb(84, 137, 122)',
+        'rgb(208, 137, 122)',
+        'rgb(208, 137, 28)',
+      ]
+    }]
+};
+
+function paintChart() {
+  var ctx = document.getElementById('chart_canvas').getContext('2d');
+  new Chart(ctx,{
     type: 'bar',
-    data: {
-      labels: [images[0].path, images[1].path, images[2].path],
-      datasets: [{
-        data: [images[0].clicks, images[1].clicks, images[2].clicks]
-      }]
-    },
+    data: data,
     options: {
+      responsive: false,
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            stepSize: 1,
+            beginAtZero:true
           }
         }]
       }
     }
   });
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var test = selectThree();
-console.log(test);
+images.addEventListener('click', clickHandler);
