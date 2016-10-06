@@ -2,6 +2,7 @@
 var collectionOfBusMall = [];
 
 if (localStorage.getItem('storedData')) {
+  collectionOfBusMall = [];
   collectionOfBusMall = JSON.parse(localStorage.getItem('storedData'));
 } else {
   makeImgObj();
