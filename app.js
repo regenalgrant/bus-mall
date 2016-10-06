@@ -1,6 +1,13 @@
 'use strict';
-
 var collectionOfBusMall = [];
+
+if (localStorage.getItem('storedData')) {
+  collectionOfBusMall = JSON.parse(localStorage.getItem('storedData'));
+} else {
+  makeImgObj();
+};
+
+
 // var selectorBox = document.getElementById('selectorBox');
 var images = document.getElementById('images');
 var left = document.getElementById('left');
@@ -47,9 +54,7 @@ function makeImgObj() {
   new BusMallItem('images/usb.gif','usb');
   new BusMallItem('images/water-can.jpg','water-can');
   new BusMallItem('images/wine-glass.jpg','wine-glass');
-  ;
 }
-makeImgObj();
 
 // random img generator for left, center, right
 function rollDice() {
@@ -57,6 +62,11 @@ function rollDice() {
     images.removeEventListener('click', clickHandler);
     updateArrays();
     paintChart();
+    // stringify and place into local storage
+    console.log(collectionOfBusMall);
+    var collectionOfBusMallString = JSON.stringify(collectionOfBusMall);
+    console.log(collectionOfBusMallString);
+    localStorage.setItem('storedData', collectionOfBusMallString);
     return;
   } else {
     hideChart();
